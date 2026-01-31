@@ -20,11 +20,13 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
             color: #333;
-            max-width: 950px; /* Mở rộng chiều ngang để chứa cột bên phải */
+            max-width: 950px;
             margin: 0 auto;
             padding: 20px;
             background-color: var(--bg);
-            font-weight: 400; /* Font thường, không in đậm */
+            font-weight: 400;
+            -webkit-print-color-adjust: exact; /* Bắt buộc để in ra màu */
+            print-color-adjust: exact;
         }
 
         /* Student Info Box */
@@ -59,6 +61,7 @@
             font-style: italic;
             margin-bottom: 20px;
             font-weight: 400;
+            border: 1px solid #bce8f1;
         }
 
         .section {
@@ -67,6 +70,7 @@
             margin-bottom: 25px;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            page-break-inside: avoid; /* Tránh bị ngắt trang giữa chừng khi in */
         }
 
         .question-block {
@@ -76,12 +80,11 @@
         }
 
         .question-text {
-            font-weight: 500; /* Chỉ hơi đậm hơn text thường một chút */
+            font-weight: 500;
             font-size: 1.05em;
             margin-bottom: 15px;
         }
 
-        /* Làm nổi bật phần bị sai (Task 3) */
         .question-text b {
             color: var(--error);
             background-color: #fceae9;
@@ -90,35 +93,32 @@
             font-weight: 600;
         }
 
-        /* Inputs & Selects */
         select, input[type="text"] {
             padding: 8px;
-            border: 1px solid #ccc; /* Viền mảnh hơn */
+            border: 1px solid #ccc;
             border-radius: 4px;
             font-size: 1em;
             transition: 0.3s;
             font-family: inherit;
         }
         
-        /* --- TASK 1 LAYOUT (Sticky Sidebar) --- */
+        /* TASK 1 LAYOUT */
         .task1-wrapper {
             display: flex;
             gap: 30px;
-            align-items: flex-start; /* Quan trọng để sticky hoạt động */
+            align-items: flex-start;
         }
         
-        .task1-questions {
-            flex: 1; /* Chiếm phần lớn diện tích */
-        }
+        .task1-questions { flex: 1; }
 
         .task1-definitions {
-            width: 350px; /* Chiều rộng cố định cho hộp định nghĩa */
+            width: 350px;
             background: #f8f9fa;
             padding: 15px;
             border-radius: 8px;
             border: 1px solid #e9ecef;
-            position: sticky; /* KỸ THUẬT STICKY */
-            top: 20px; /* Cách mép trên 20px khi cuộn */
+            position: sticky;
+            top: 20px;
             font-size: 0.9em;
             box-shadow: 0 4px 6px rgba(0,0,0,0.05);
         }
@@ -126,15 +126,14 @@
         .def-item { margin-bottom: 8px; padding-bottom: 8px; border-bottom: 1px solid #eee; }
         .def-key { font-weight: 700; color: var(--accent); margin-right: 5px; font-size: 1.1em; }
 
-        /* Responsive cho Mobile: Khi màn hình nhỏ, hộp định nghĩa nhảy lên trên */
         @media (max-width: 768px) {
             .task1-wrapper { flex-direction: column-reverse; }
             .task1-definitions { width: 100%; position: static; box-sizing: border-box; }
         }
 
-        /* --- Vertical Options (A/B/C) --- */
+        /* Options */
         .radio-option {
-            display: block; /* Xuống dòng */
+            display: block;
             margin-bottom: 8px;
             cursor: pointer;
             padding: 5px;
@@ -157,11 +156,9 @@
             font-family: inherit;
         }
         .btn-check { background-color: var(--accent); }
-        .btn-check:hover { background-color: #2980b9; }
         .btn-explain { background-color: var(--explain); display: none; }
         .btn-trans { background-color: var(--translate); display: none; }
         
-        /* Hint Button */
         .hint-btn {
             background-color: #fff;
             color: #f39c12;
@@ -172,18 +169,15 @@
             border-radius: 12px;
             cursor: pointer;
         }
-        .hint-btn:hover { background-color: #fff8e1; }
-        .hint-text { color: #888; font-style: italic; font-size: 0.9em; margin-left: 5px; }
 
         /* Feedback States */
-        .correct-input { border-color: var(--success) !important; background-color: #eafaf1; }
-        .incorrect-input { border-color: var(--error) !important; background-color: #fceae9; }
+        .correct-input { border-color: var(--success) !important; background-color: #eafaf1 !important; }
+        .incorrect-input { border-color: var(--error) !important; background-color: #fceae9 !important; }
         .feedback-msg { display: block; margin-top: 5px; font-size: 0.95em; font-weight: 500; }
         .text-success { color: var(--success); }
         .text-error { color: var(--error); }
         .retry-note { font-weight: 400; color: #7f8c8d; font-size: 0.9em; margin-left: 5px; }
 
-        /* Hidden Info Boxes */
         .info-box {
             display: none;
             margin-top: 10px;
@@ -213,10 +207,59 @@
         .btn-submit-all {
             background-color: #f1c40f;
             color: #2c3e50;
-            padding: 8px 20px;
-            font-size: 1em;
+            padding: 10px 25px;
+            font-size: 1.1em;
             border-radius: 5px;
-            font-weight: 600;
+            font-weight: 700;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+            transition: 0.2s;
+        }
+        .btn-submit-all:hover { transform: scale(1.05); background-color: #f39c12; }
+
+        /* --- PRINT CSS (QUAN TRỌNG ĐỂ XUẤT PDF ĐẸP) --- */
+        @media print {
+            body { 
+                background-color: white; 
+                padding: 0; 
+                font-size: 12pt;
+            }
+            .section {
+                box-shadow: none;
+                border: 1px solid #ddd;
+                page-break-inside: avoid;
+            }
+            .score-board {
+                position: static;
+                background: none;
+                color: black;
+                border: 2px solid #2c3e50;
+                margin-top: 20px;
+            }
+            .total-score { color: #c0392b; }
+            
+            /* Ẩn các nút không cần thiết khi in */
+            .btn-group, .btn-check, .hint-btn, .btn-submit-all {
+                display: none !important;
+            }
+            
+            /* Giữ lại thông báo kết quả (Đúng/Sai) */
+            .feedback-msg { display: block !important; }
+
+            /* Fix Task 1 cho bản in */
+            .task1-wrapper { display: block; }
+            .task1-definitions { 
+                position: static; 
+                width: 100%; 
+                border: 1px solid #000; 
+                margin-bottom: 20px;
+            }
+
+            /* Hiện đáp án giải thích nếu đã mở */
+            .info-box { display: block !important; border: 1px solid #ccc; }
+            
+            /* Đảm bảo màu sắc hiển thị rõ */
+            .correct-input { background-color: #eafaf1 !important; border: 2px solid #27ae60 !important; }
+            .incorrect-input { background-color: #fceae9 !important; border: 2px solid #c0392b !important; }
         }
     </style>
 </head>
@@ -236,9 +279,7 @@
         <div class="instruction">Instruction: Match the term in the list with its correct definition (A-F).</div>
         
         <div class="task1-wrapper">
-            <div class="task1-questions" id="part1-container">
-                </div>
-
+            <div class="task1-questions" id="part1-container"></div>
             <div class="task1-definitions">
                 <h3 style="margin-top:0; color:var(--accent); border-bottom:1px solid #ddd; padding-bottom:5px;">Definitions Box</h3>
                 <div class="def-item"><span class="def-key">A.</span> A quick, temporary fix for a bug directly on the live server.</div>
@@ -336,16 +377,19 @@
     </div>
 
     <div class="score-board">
-        <div>
-            KẾT QUẢ: <span id="total-score" class="total-score">0</span> / 32
+        <div style="text-align: left;">
+            <div>KẾT QUẢ: <span id="total-score" class="total-score">0</span> / 32</div>
+            <div style="font-size: 0.7em; color: #bbb;">(Bấm nút vàng bên phải để lưu bài)</div>
         </div>
         <div>
-            <button class="btn-submit-all" onclick="calculateTotalScore()">Cập nhật Điểm & Sao chép KQ</button>
+            <button class="btn-submit-all" onclick="submitAndPrint()">🖨️ Nộp bài & Tải PDF</button>
         </div>
     </div>
 
 <script>
-    // --- DATA ---
+    // --- DATA & RENDER (Giữ nguyên logic cũ) ---
+    // Để tiết kiệm không gian, tôi dùng lại logic JS cũ nhưng thêm hàm Print
+    
     const part1Data = [
         { q: "Scope Creep", ans: "C", exp: "Sự phình to phạm vi dự án không kiểm soát.", trans: "Sự mở rộng không kiểm soát của các mục tiêu dự án." },
         { q: "Showstopper", ans: "D", exp: "Lỗi nghiêm trọng chặn đứng quy trình.", trans: "Một vấn đề nghiêm trọng làm dừng toàn bộ quy trình." },
@@ -441,8 +485,6 @@
         { q: "If / you / lead / sedentary lifestyle / you / will / have / back pain.", ans: "If you lead a sedentary lifestyle, you will have back pain.", exp: "If + HTĐ, S + Will + V.", trans: "Nếu bạn có lối sống ít vận động, bạn sẽ bị đau lưng." }
     ];
 
-    // --- RENDER FUNCTIONS ---
-
     function renderPart1() {
         const container = document.getElementById('part1-container');
         part1Data.forEach((item, index) => {
@@ -450,7 +492,7 @@
                 <div class="question-block">
                     <div class="question-text">${index + 1}. ${item.q}</div>
                     <select id="p1-q${index}" class="scorable">
-                        <option value="">Choose Definition...</option>
+                        <option value="">Choose...</option>
                         <option value="A">A</option><option value="B">B</option><option value="C">C</option>
                         <option value="D">D</option><option value="E">E</option><option value="F">F</option>
                     </select>
@@ -494,14 +536,12 @@
         const container = document.getElementById('part3-container');
         const labels = ["A", "B", "C"];
         part3Data.forEach((item, index) => {
-            // Render Options vertically with labels
             let optsHTML = item.opts.map((opt, i) => `
                 <label class="radio-option">
                     <input type="radio" name="p3-q${index}" value="${i}" class="scorable-radio"> 
                     <span class="option-label">${labels[i]}.</span> ${opt}
                 </label>
             `).join('');
-            
             const html = `
                 <div class="question-block">
                     <div class="question-text">${index + 1}. ${item.q}</div>
@@ -523,14 +563,12 @@
         const container = document.getElementById('part4-container');
         const labels = ["A", "B", "C"];
         part4Data.forEach((item, index) => {
-             // Render Options vertically with labels
              let optsHTML = item.opts.map((opt, i) => `
                 <label class="radio-option">
                     <input type="radio" name="p4-q${index}" value="${i}" class="scorable-radio"> 
                     <span class="option-label">${labels[i]}.</span> ${opt}
                 </label>
             `).join('');
-
             const html = `
                 <div class="question-block">
                     <div class="question-text" style="background:#f9f9f9; padding:10px;">${index + 1}. ${item.context}</div>
@@ -587,7 +625,7 @@
         });
     }
 
-    // --- UTILS ---
+    // UTILS & CHECK FUNCTIONS
     function toggle(id) {
         const el = document.getElementById(id);
         el.style.display = (el.style.display === "block") ? "none" : "block";
@@ -595,24 +633,14 @@
 
     function cleanStr(str) { return str.trim().toLowerCase().replace(/[.,?!]/g, '').replace(/\s+/g, ' '); }
 
-    // HINT FUNCTION FOR TASK 7
     function showHint(inputId, hintText) {
         const inputEl = document.getElementById(inputId);
-        // Hiện gợi ý vào ô input dưới dạng placeholder hoặc text mờ, 
-        // hoặc đơn giản là alert nhẹ, hoặc text hiển thị ngay cạnh. 
-        // Yêu cầu: "nhấn vào và thấy 1-2 chữ cái đầu".
-        // Ta sẽ chèn text vào ô input nếu ô đang trống.
         if (inputEl.value === "") {
             inputEl.value = hintText + "...";
             inputEl.style.color = "#888";
-        } else {
-            // Nếu đã có chữ (dù là hint cũ), ta reset
-            if(inputEl.value.includes("...")) {
-                 inputEl.value = hintText + "...";
-            }
+        } else if(inputEl.value.includes("...")) {
+             inputEl.value = hintText + "...";
         }
-        
-        // Xóa hint khi user focus vào nhập
         inputEl.onfocus = function() {
             if(this.value.includes("...")) {
                 this.value = "";
@@ -625,25 +653,15 @@
         if (isCorrect) {
             inputEl.classList.remove('incorrect-input');
             inputEl.classList.add('correct-input');
-            if(msgEl) {
-                msgEl.innerHTML = `✅ Chính xác!`;
-                msgEl.className = "feedback-msg text-success";
-            }
+            if(msgEl) { msgEl.innerHTML = `✅ Chính xác!`; msgEl.className = "feedback-msg text-success"; }
             if(expBtnId) document.getElementById(expBtnId).style.display = 'inline-block';
             if(transBtnId) document.getElementById(transBtnId).style.display = 'inline-block';
-            return 1; // Score
         } else {
             inputEl.classList.remove('correct-input');
             inputEl.classList.add('incorrect-input');
-            if(msgEl) {
-                msgEl.innerHTML = `❌ Sai rồi. <span class="retry-note">Bạn hãy thử lại nhé!</span>`;
-                msgEl.className = "feedback-msg text-error";
-            }
-            return 0;
+            if(msgEl) { msgEl.innerHTML = `❌ Sai rồi.`; msgEl.className = "feedback-msg text-error"; }
         }
     }
-
-    // --- CHECK FUNCTIONS ---
 
     function checkSelect(id, correctVal, msgId, expId, transId) {
         const el = document.getElementById(id);
@@ -657,14 +675,9 @@
         const el2 = document.getElementById(`p2-q${index}-2`);
         const msg1 = document.getElementById(`fb-p2-q${index}-1`);
         const msg2 = document.getElementById(`fb-p2-q${index}-2`);
-        
-        const ok1 = (el1.value === ans1);
-        const ok2 = (el2.value === ans2);
-
-        setFeedback(ok1, el1, msg1, null, null);
-        setFeedback(ok2, el2, msg2, null, null);
-
-        if(ok1 && ok2) {
+        setFeedback(el1.value === ans1, el1, msg1);
+        setFeedback(el2.value === ans2, el2, msg2);
+        if(el1.value === ans1 && el2.value === ans2) {
              document.getElementById(`btn-exp-p2-${index}`).style.display = 'inline-block';
              document.getElementById(`btn-trans-p2-${index}`).style.display = 'inline-block';
         }
@@ -675,28 +688,19 @@
         const radios = document.getElementsByName(name);
         const msgEl = document.getElementById(msgId);
         let selected = -1;
-        
-        // Reset styles (remove background from labels)
         radios.forEach(r => r.parentElement.style.backgroundColor = "transparent");
+        for(let i=0; i<radios.length; i++) { if (radios[i].checked) selected = i; }
 
-        for(let i=0; i<radios.length; i++) {
-            if (radios[i].checked) selected = i;
-        }
-
-        if (selected === -1) {
-            msgEl.innerHTML = "Vui lòng chọn đáp án."; return;
-        }
+        if (selected === -1) { msgEl.innerHTML = "Vui lòng chọn đáp án."; return; }
 
         if (selected === correctIndex) {
             radios[selected].parentElement.style.backgroundColor = "#eafaf1";
-            msgEl.innerHTML = "✅ Chính xác!";
-            msgEl.className = "feedback-msg text-success";
+            msgEl.innerHTML = "✅ Chính xác!"; msgEl.className = "feedback-msg text-success";
             document.getElementById(expId).style.display = 'inline-block';
             document.getElementById(transId).style.display = 'inline-block';
         } else {
             radios[selected].parentElement.style.backgroundColor = "#fceae9";
-            msgEl.innerHTML = `❌ Sai rồi. <span class="retry-note">Bạn hãy thử lại nhé!</span>`;
-            msgEl.className = "feedback-msg text-error";
+            msgEl.innerHTML = `❌ Sai rồi.`; msgEl.className = "feedback-msg text-error";
         }
         updateRunningScore();
     }
@@ -704,10 +708,7 @@
     function checkText(id, correctText, msgId, expId, transId) {
         const el = document.getElementById(id);
         const msg = document.getElementById(msgId);
-        // Clean hints if any before checking
-        let val = el.value;
-        if(val.includes("...")) val = ""; 
-        
+        let val = el.value.includes("...") ? "" : el.value;
         const isCorrect = cleanStr(val) === cleanStr(correctText);
         setFeedback(isCorrect, el, msg, expId, transId);
         updateRunningScore();
@@ -724,65 +725,26 @@
     function checkPart7() {
         const answers = ["red light", "showstopper", "overlapping", "simulator", "mitigation", "clarify"];
         let correctCount = 0;
-        
         for(let i=1; i<=6; i++) {
             const el = document.getElementById(`p7-q${i}`);
             const msg = document.getElementById(`fb-p7-q${i}`);
-            
-            let userVal = cleanStr(el.value);
-            // remove hint chars if user didn't type
-            if(userVal.includes("...")) userVal = "";
+            let userVal = cleanStr(el.value.includes("...") ? "" : el.value);
 
             if(userVal === answers[i-1]) {
-                 el.classList.remove('incorrect-input');
-                 el.classList.add('correct-input');
-                 msg.innerHTML = "✅"; msg.className = "text-success";
-                 correctCount++;
+                 el.classList.remove('incorrect-input'); el.classList.add('correct-input');
+                 msg.innerHTML = "✅"; msg.className = "text-success"; correctCount++;
             } else {
-                 el.classList.remove('correct-input');
-                 el.classList.add('incorrect-input');
+                 el.classList.remove('correct-input'); el.classList.add('incorrect-input');
                  msg.innerHTML = "❌"; msg.className = "text-error";
             }
         }
-
         const mainMsg = document.getElementById('fb-p7-main');
         if(correctCount === 6) {
             mainMsg.innerHTML = "Tuyệt vời! Bạn đã làm đúng hết.";
             document.getElementById('btn-exp-p7').style.display = 'inline-block';
             document.getElementById('btn-trans-p7').style.display = 'inline-block';
-        } else {
-            mainMsg.innerHTML = `Bạn làm đúng ${correctCount}/6 câu. Hãy kiểm tra lại các ô màu đỏ nhé!`;
-        }
+        } else { mainMsg.innerHTML = `Bạn làm đúng ${correctCount}/6 câu.`; }
         updateRunningScore();
-    }
-
-    // --- SCORING LOGIC ---
-    function calculateTotalScore() {
-        let score = 0;
-        
-        // 1. Inputs/Selects with 'correct-input' class
-        const correctInputs = document.querySelectorAll('.correct-input').length;
-        score += correctInputs;
-
-        // 2. Radios (T3, T4)
-        part3Data.forEach((item, idx) => {
-            const radios = document.getElementsByName(`p3-q${idx}`);
-            if(radios[item.ans].checked) score++;
-        });
-        part4Data.forEach((item, idx) => {
-            const radios = document.getElementsByName(`p4-q${idx}`);
-            if(radios[item.ans].checked) score++;
-        });
-
-        document.getElementById('total-score').innerText = score;
-        
-        // Copy to clipboard
-        const name = document.getElementById('studentName').value || "Học viên";
-        const resultText = `Kết quả bài Review LLA:\nHọc viên: ${name}\nĐiểm số: ${score}/32`;
-        
-        navigator.clipboard.writeText(resultText).then(() => {
-            alert(`${resultText}\n\n(Đã sao chép kết quả! Bạn hãy paste gửi cho giáo viên nhé)`);
-        });
     }
 
     function updateRunningScore() {
@@ -790,25 +752,30 @@
         score += document.querySelectorAll('.correct-input').length;
         part3Data.forEach((item, idx) => {
             const radios = document.getElementsByName(`p3-q${idx}`);
-            if(radios[item.ans].checked) score++;
+            if(radios[item.ans] && radios[item.ans].checked) score++;
         });
         part4Data.forEach((item, idx) => {
             const radios = document.getElementsByName(`p4-q${idx}`);
-            if(radios[item.ans].checked) score++;
+            if(radios[item.ans] && radios[item.ans].checked) score++;
         });
         document.getElementById('total-score').innerText = score;
     }
 
-    // INIT
-    window.onload = function() {
-        renderPart1();
-        renderPart2();
-        renderPart3();
-        renderPart4();
-        renderPart5();
-        renderPart6();
-    };
+    // FUNCTION TO PRINT
+    function submitAndPrint() {
+        // Cập nhật điểm lần cuối
+        updateRunningScore();
+        
+        // Thông báo nhỏ
+        alert("Hệ thống sẽ mở cửa sổ in.\nVui lòng chọn 'Lưu dưới dạng PDF' (Save as PDF) để nộp bài nhé!");
+        
+        // Gọi lệnh in
+        window.print();
+    }
 
+    window.onload = function() {
+        renderPart1(); renderPart2(); renderPart3(); renderPart4(); renderPart5(); renderPart6();
+    };
 </script>
 </body>
 </html>
