@@ -3,26 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mid-Course Review: Lesson 1-7</title>
+    <title>LLA - REVIEW 1</title>
     <style>
         :root {
             --primary: #2c3e50;
-            --accent: #3498db;
+            --accent: #2980b9;
             --success: #27ae60;
             --error: #c0392b;
             --explain: #16a085;
             --translate: #8e44ad;
             --bg: #f4f6f7;
+            --hint: #f39c12;
         }
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
             color: #333;
-            max-width: 850px;
+            max-width: 950px; /* Mở rộng chiều ngang để chứa cột bên phải */
             margin: 0 auto;
             padding: 20px;
             background-color: var(--bg);
+            font-weight: 400; /* Font thường, không in đậm */
         }
 
         /* Student Info Box */
@@ -46,8 +48,8 @@
             border-radius: 4px;
         }
 
-        h1 { text-align: center; color: var(--primary); margin-bottom: 30px; }
-        h2 { color: var(--primary); border-bottom: 2px solid #eee; padding-bottom: 10px; margin-top: 0; }
+        h1 { text-align: center; color: var(--primary); margin-bottom: 30px; font-weight: 600; }
+        h2 { color: var(--primary); border-bottom: 2px solid #eee; padding-bottom: 10px; margin-top: 0; font-weight: 600; font-size: 1.4em;}
         
         .instruction {
             background-color: #e8f4f8;
@@ -56,7 +58,7 @@
             border-radius: 5px;
             font-style: italic;
             margin-bottom: 20px;
-            font-weight: 500;
+            font-weight: 400;
         }
 
         .section {
@@ -74,61 +76,112 @@
         }
 
         .question-text {
-            font-weight: 600;
+            font-weight: 500; /* Chỉ hơi đậm hơn text thường một chút */
             font-size: 1.05em;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
+        }
+
+        /* Làm nổi bật phần bị sai (Task 3) */
+        .question-text b {
+            color: var(--error);
+            background-color: #fceae9;
+            padding: 0 4px;
+            border-radius: 3px;
+            font-weight: 600;
         }
 
         /* Inputs & Selects */
         select, input[type="text"] {
             padding: 8px;
-            border: 2px solid #ddd;
+            border: 1px solid #ccc; /* Viền mảnh hơn */
             border-radius: 4px;
             font-size: 1em;
             transition: 0.3s;
+            font-family: inherit;
         }
         
-        /* Specific Styles */
-        .definition-list {
-            background: #f9f9f9;
-            padding: 15px;
-            border-radius: 5px;
-            margin-bottom: 15px;
-            font-size: 0.9em;
+        /* --- TASK 1 LAYOUT (Sticky Sidebar) --- */
+        .task1-wrapper {
+            display: flex;
+            gap: 30px;
+            align-items: flex-start; /* Quan trọng để sticky hoạt động */
         }
-        .def-item { margin-bottom: 5px; }
-        .def-key { font-weight: bold; color: var(--accent); margin-right: 5px; }
+        
+        .task1-questions {
+            flex: 1; /* Chiếm phần lớn diện tích */
+        }
+
+        .task1-definitions {
+            width: 350px; /* Chiều rộng cố định cho hộp định nghĩa */
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #e9ecef;
+            position: sticky; /* KỸ THUẬT STICKY */
+            top: 20px; /* Cách mép trên 20px khi cuộn */
+            font-size: 0.9em;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        
+        .def-item { margin-bottom: 8px; padding-bottom: 8px; border-bottom: 1px solid #eee; }
+        .def-key { font-weight: 700; color: var(--accent); margin-right: 5px; font-size: 1.1em; }
+
+        /* Responsive cho Mobile: Khi màn hình nhỏ, hộp định nghĩa nhảy lên trên */
+        @media (max-width: 768px) {
+            .task1-wrapper { flex-direction: column-reverse; }
+            .task1-definitions { width: 100%; position: static; box-sizing: border-box; }
+        }
+
+        /* --- Vertical Options (A/B/C) --- */
+        .radio-option {
+            display: block; /* Xuống dòng */
+            margin-bottom: 8px;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+        .radio-option:hover { background-color: #f0f8ff; }
+        .option-label { font-weight: 600; color: var(--accent); margin-right: 8px; }
 
         /* Buttons */
-        .btn-group { margin-top: 10px; display: flex; gap: 8px; flex-wrap: wrap; }
+        .btn-group { margin-top: 15px; display: flex; gap: 8px; flex-wrap: wrap; }
         button {
             border: none;
             padding: 8px 15px;
             border-radius: 4px;
             cursor: pointer;
-            font-weight: 600;
+            font-weight: 500;
             color: white;
             font-size: 0.9em;
+            font-family: inherit;
         }
         .btn-check { background-color: var(--accent); }
         .btn-check:hover { background-color: #2980b9; }
+        .btn-explain { background-color: var(--explain); display: none; }
+        .btn-trans { background-color: var(--translate); display: none; }
         
-        .btn-explain { background-color: var(--explain); display: none; } /* Hidden by default */
-        .btn-trans { background-color: var(--translate); display: none; } /* Hidden by default */
+        /* Hint Button */
+        .hint-btn {
+            background-color: #fff;
+            color: #f39c12;
+            border: 1px solid #f39c12;
+            padding: 2px 8px;
+            font-size: 0.8em;
+            margin-left: 5px;
+            border-radius: 12px;
+            cursor: pointer;
+        }
+        .hint-btn:hover { background-color: #fff8e1; }
+        .hint-text { color: #888; font-style: italic; font-size: 0.9em; margin-left: 5px; }
 
         /* Feedback States */
         .correct-input { border-color: var(--success) !important; background-color: #eafaf1; }
         .incorrect-input { border-color: var(--error) !important; background-color: #fceae9; }
-
-        .feedback-msg {
-            display: block;
-            margin-top: 5px;
-            font-size: 0.9em;
-            font-weight: bold;
-        }
+        .feedback-msg { display: block; margin-top: 5px; font-size: 0.95em; font-weight: 500; }
         .text-success { color: var(--success); }
         .text-error { color: var(--error); }
-        .retry-note { font-weight: normal; color: #7f8c8d; font-size: 0.9em; margin-left: 5px; }
+        .retry-note { font-weight: 400; color: #7f8c8d; font-size: 0.9em; margin-left: 5px; }
 
         /* Hidden Info Boxes */
         .info-box {
@@ -141,34 +194,36 @@
         .explain-box { background-color: #e8f8f5; border-left: 4px solid var(--explain); color: #0e6655; }
         .trans-box { background-color: #f5eef8; border-left: 4px solid var(--translate); color: #5b2c6f; }
 
-        /* Score Box */
+        /* Score Board */
         .score-board {
             position: sticky;
             bottom: 0;
-            background: #2c3e50;
+            background: #34495e;
             color: white;
             padding: 15px;
             text-align: center;
-            font-size: 1.2em;
+            font-size: 1.1em;
             box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
             display: flex;
             justify-content: space-between;
             align-items: center;
+            z-index: 1000;
         }
-        .total-score { font-weight: bold; font-size: 1.4em; color: #f1c40f; }
+        .total-score { font-weight: bold; font-size: 1.3em; color: #f1c40f; }
         .btn-submit-all {
             background-color: #f1c40f;
             color: #2c3e50;
-            padding: 10px 20px;
+            padding: 8px 20px;
             font-size: 1em;
             border-radius: 5px;
+            font-weight: 600;
         }
     </style>
 </head>
 <body>
 
     <div class="header">
-        <h1>ENGLISH MID-COURSE REVIEW</h1>
+        <h1>LLA - REVIEW 1</h1>
     </div>
 
     <div class="student-info">
@@ -180,16 +235,20 @@
         <h2>Task 1</h2>
         <div class="instruction">Instruction: Match the term in the list with its correct definition (A-F).</div>
         
-        <div class="definition-list">
-            <div class="def-item"><span class="def-key">A.</span> A quick, temporary fix for a bug directly on the live server.</div>
-            <div class="def-item"><span class="def-key">B.</span> A simulation environment that mimics real hardware but isn't real.</div>
-            <div class="def-item"><span class="def-key">C.</span> The uncontrolled expansion of project goals/features without adjusting time/budget.</div>
-            <div class="def-item"><span class="def-key">D.</span> A critical issue that halts the entire process/release.</div>
-            <div class="def-item"><span class="def-key">E.</span> The amount of data that can be transmitted (or a team's capacity to work).</div>
-            <div class="def-item"><span class="def-key">F.</span> The action of reducing the severity or likelihood of a risk.</div>
-        </div>
+        <div class="task1-wrapper">
+            <div class="task1-questions" id="part1-container">
+                </div>
 
-        <div id="part1-container"></div>
+            <div class="task1-definitions">
+                <h3 style="margin-top:0; color:var(--accent); border-bottom:1px solid #ddd; padding-bottom:5px;">Definitions Box</h3>
+                <div class="def-item"><span class="def-key">A.</span> A quick, temporary fix for a bug directly on the live server.</div>
+                <div class="def-item"><span class="def-key">B.</span> A simulation environment that mimics real hardware but isn't real.</div>
+                <div class="def-item"><span class="def-key">C.</span> The uncontrolled expansion of project goals/features without adjusting time/budget.</div>
+                <div class="def-item"><span class="def-key">D.</span> A critical issue that halts the entire process/release.</div>
+                <div class="def-item"><span class="def-key">E.</span> The amount of data that can be transmitted (or a team's capacity to work).</div>
+                <div class="def-item"><span class="def-key">F.</span> The action of reducing the severity or likelihood of a risk.</div>
+            </div>
+        </div>
     </div>
 
     <div class="section">
@@ -200,7 +259,7 @@
 
     <div class="section">
         <h2>Task 3</h2>
-        <div class="instruction">Instruction: The <b>bold text</b> is logically incorrect. Choose the best option to fix it.</div>
+        <div class="instruction">Instruction: The <b>red bold text</b> is logically incorrect. Choose the best option to fix it.</div>
         <div id="part3-container"></div>
     </div>
 
@@ -224,28 +283,40 @@
 
     <div class="section">
         <h2>Task 7</h2>
-        <div class="instruction">Instruction: Complete the email by filling in the blanks.</div>
-        <div style="background: #fdfdfd; padding: 20px; border: 1px solid #ccc; border-radius: 5px;">
-            <p><strong>Subject:</strong> Project Status Update</p>
+        <div class="instruction">Instruction: Complete the email by filling in the blanks. Click the bulb 💡 for a hint.</div>
+        <div style="background: #fdfdfd; padding: 25px; border: 1px solid #ccc; border-radius: 5px; font-family: 'Segoe UI', sans-serif;">
+            <p style="margin-top:0;"><strong>Subject:</strong> Project Status Update</p>
             <p>Dear Client,</p>
             <p>I am writing to update you on the project status. Unfortunately, we are currently at a 
-                (1) <input type="text" id="p7-q1" class="scorable" style="width: 120px;"> <span id="fb-p7-q1"></span>.
+                (1) <input type="text" id="p7-q1" class="scorable" style="width: 120px;"> 
+                <button class="hint-btn" onclick="showHint('p7-q1', 'red')">💡</button>
+                <span id="fb-p7-q1"></span>.
             </p>
             <p>This morning, the testing team identified a critical bug. It is a 
-                (2) <input type="text" id="p7-q2" class="scorable" style="width: 120px;"> <span id="fb-p7-q2"></span> because users cannot log in.
+                (2) <input type="text" id="p7-q2" class="scorable" style="width: 120px;"> 
+                <button class="hint-btn" onclick="showHint('p7-q2', 'sh')">💡</button>
+                <span id="fb-p7-q2"></span> because users cannot log in.
             </p>
             <p>Specifically, the "Login" button is 
-                (3) <input type="text" id="p7-q3" class="scorable" style="width: 120px;"> <span id="fb-p7-q3"></span> with the "Sign Up" text, making it unclickable.
+                (3) <input type="text" id="p7-q3" class="scorable" style="width: 120px;"> 
+                <button class="hint-btn" onclick="showHint('p7-q3', 'ov')">💡</button>
+                <span id="fb-p7-q3"></span> with the "Sign Up" text, making it unclickable.
             </p>
             <p>This issue only happens on Real Devices, not on the 
-                (4) <input type="text" id="p7-q4" class="scorable" style="width: 120px;"> <span id="fb-p7-q4"></span>.
+                (4) <input type="text" id="p7-q4" class="scorable" style="width: 120px;"> 
+                <button class="hint-btn" onclick="showHint('p7-q4', 'si')">💡</button>
+                <span id="fb-p7-q4"></span>.
             </p>
             <p>We have a 
-                (5) <input type="text" id="p7-q5" class="scorable" style="width: 120px;"> <span id="fb-p7-q5"></span> plan:
+                (5) <input type="text" id="p7-q5" class="scorable" style="width: 120px;"> 
+                <button class="hint-btn" onclick="showHint('p7-q5', 'mi')">💡</button>
+                <span id="fb-p7-q5"></span> plan:
             </p>
             <ol>
                 <li>The Dev team will fix the UI code today.</li>
-                <li>We need you to (6) <input type="text" id="p7-q6" class="scorable" style="width: 120px;"> <span id="fb-p7-q6"></span> the expected screen size for the new iPad.</li>
+                <li>We need you to (6) <input type="text" id="p7-q6" class="scorable" style="width: 120px;"> 
+                <button class="hint-btn" onclick="showHint('p7-q6', 'cl')">💡</button>
+                <span id="fb-p7-q6"></span> the expected screen size for the new iPad.</li>
             </ol>
             <p>Best regards,<br>Project Manager.</p>
         </div>
@@ -421,8 +492,16 @@
 
     function renderPart3() {
         const container = document.getElementById('part3-container');
+        const labels = ["A", "B", "C"];
         part3Data.forEach((item, index) => {
-            let optsHTML = item.opts.map((opt, i) => `<label><input type="radio" name="p3-q${index}" value="${i}" class="scorable-radio"> ${opt}</label>`).join('');
+            // Render Options vertically with labels
+            let optsHTML = item.opts.map((opt, i) => `
+                <label class="radio-option">
+                    <input type="radio" name="p3-q${index}" value="${i}" class="scorable-radio"> 
+                    <span class="option-label">${labels[i]}.</span> ${opt}
+                </label>
+            `).join('');
+            
             const html = `
                 <div class="question-block">
                     <div class="question-text">${index + 1}. ${item.q}</div>
@@ -442,12 +521,20 @@
 
     function renderPart4() {
         const container = document.getElementById('part4-container');
+        const labels = ["A", "B", "C"];
         part4Data.forEach((item, index) => {
-            let optsHTML = item.opts.map((opt, i) => `<label><input type="radio" name="p4-q${index}" value="${i}" class="scorable-radio"> ${opt}</label>`).join('');
+             // Render Options vertically with labels
+             let optsHTML = item.opts.map((opt, i) => `
+                <label class="radio-option">
+                    <input type="radio" name="p4-q${index}" value="${i}" class="scorable-radio"> 
+                    <span class="option-label">${labels[i]}.</span> ${opt}
+                </label>
+            `).join('');
+
             const html = `
                 <div class="question-block">
                     <div class="question-text" style="background:#f9f9f9; padding:10px;">${index + 1}. ${item.context}</div>
-                    <div style="margin-top:5px;">${optsHTML}</div>
+                    <div style="margin-top:10px;">${optsHTML}</div>
                     <div id="fb-p4-q${index}" class="feedback-msg"></div>
                     <div class="btn-group">
                         <button class="btn-check" onclick="checkRadio('p4-q${index}', ${item.ans}, 'fb-p4-q${index}', 'btn-exp-p4-${index}', 'btn-trans-p4-${index}')">Check</button>
@@ -508,6 +595,32 @@
 
     function cleanStr(str) { return str.trim().toLowerCase().replace(/[.,?!]/g, '').replace(/\s+/g, ' '); }
 
+    // HINT FUNCTION FOR TASK 7
+    function showHint(inputId, hintText) {
+        const inputEl = document.getElementById(inputId);
+        // Hiện gợi ý vào ô input dưới dạng placeholder hoặc text mờ, 
+        // hoặc đơn giản là alert nhẹ, hoặc text hiển thị ngay cạnh. 
+        // Yêu cầu: "nhấn vào và thấy 1-2 chữ cái đầu".
+        // Ta sẽ chèn text vào ô input nếu ô đang trống.
+        if (inputEl.value === "") {
+            inputEl.value = hintText + "...";
+            inputEl.style.color = "#888";
+        } else {
+            // Nếu đã có chữ (dù là hint cũ), ta reset
+            if(inputEl.value.includes("...")) {
+                 inputEl.value = hintText + "...";
+            }
+        }
+        
+        // Xóa hint khi user focus vào nhập
+        inputEl.onfocus = function() {
+            if(this.value.includes("...")) {
+                this.value = "";
+                this.style.color = "#333";
+            }
+        }
+    }
+
     function setFeedback(isCorrect, inputEl, msgEl, expBtnId, transBtnId) {
         if (isCorrect) {
             inputEl.classList.remove('incorrect-input');
@@ -563,7 +676,8 @@
         const msgEl = document.getElementById(msgId);
         let selected = -1;
         
-        radios.forEach(r => r.parentElement.style.backgroundColor = "transparent"); // reset
+        // Reset styles (remove background from labels)
+        radios.forEach(r => r.parentElement.style.backgroundColor = "transparent");
 
         for(let i=0; i<radios.length; i++) {
             if (radios[i].checked) selected = i;
@@ -590,7 +704,11 @@
     function checkText(id, correctText, msgId, expId, transId) {
         const el = document.getElementById(id);
         const msg = document.getElementById(msgId);
-        const isCorrect = cleanStr(el.value) === cleanStr(correctText);
+        // Clean hints if any before checking
+        let val = el.value;
+        if(val.includes("...")) val = ""; 
+        
+        const isCorrect = cleanStr(val) === cleanStr(correctText);
         setFeedback(isCorrect, el, msg, expId, transId);
         updateRunningScore();
     }
@@ -610,8 +728,11 @@
         for(let i=1; i<=6; i++) {
             const el = document.getElementById(`p7-q${i}`);
             const msg = document.getElementById(`fb-p7-q${i}`);
-            const userVal = cleanStr(el.value);
             
+            let userVal = cleanStr(el.value);
+            // remove hint chars if user didn't type
+            if(userVal.includes("...")) userVal = "";
+
             if(userVal === answers[i-1]) {
                  el.classList.remove('incorrect-input');
                  el.classList.add('correct-input');
@@ -626,79 +747,4 @@
 
         const mainMsg = document.getElementById('fb-p7-main');
         if(correctCount === 6) {
-            mainMsg.innerHTML = "Tuyệt vời! Bạn đã làm đúng hết.";
-            document.getElementById('btn-exp-p7').style.display = 'inline-block';
-            document.getElementById('btn-trans-p7').style.display = 'inline-block';
-        } else {
-            mainMsg.innerHTML = `Bạn làm đúng ${correctCount}/6 câu. Hãy kiểm tra lại các ô màu đỏ nhé!`;
-        }
-        updateRunningScore();
-    }
-
-    // --- SCORING LOGIC ---
-    // Total Items: 
-    // T1: 6, T2: 4, T3: 4, T4: 3, T5: 5, T6: 4, T7: 6 = 32 points.
-
-    function calculateTotalScore() {
-        // Force check all sections first (simulate click)? 
-        // No, simpler to just count inputs that have 'correct-input' class
-        // But for Radios, we need to check property.
-        
-        let score = 0;
-        
-        // 1. Inputs/Selects with 'correct-input' class
-        const correctInputs = document.querySelectorAll('.correct-input').length;
-        score += correctInputs;
-
-        // 2. Radios (T3, T4)
-        // Task 3
-        part3Data.forEach((item, idx) => {
-            const radios = document.getElementsByName(`p3-q${idx}`);
-            if(radios[item.ans].checked) score++;
-        });
-        // Task 4
-        part4Data.forEach((item, idx) => {
-            const radios = document.getElementsByName(`p4-q${idx}`);
-            if(radios[item.ans].checked) score++;
-        });
-
-        document.getElementById('total-score').innerText = score;
-        
-        // Copy to clipboard
-        const name = document.getElementById('studentName').value || "Học viên";
-        const resultText = `Kết quả bài Review:\nHọc viên: ${name}\nĐiểm số: ${score}/32`;
-        
-        navigator.clipboard.writeText(resultText).then(() => {
-            alert(`${resultText}\n\n(Đã sao chép kết quả! Bạn hãy paste gửi cho giáo viên nhé)`);
-        });
-    }
-
-    function updateRunningScore() {
-        // Optional: Updates score real-time visually without alerting
-        // Simple logic duplicate of above but without alert
-        let score = 0;
-        score += document.querySelectorAll('.correct-input').length;
-        part3Data.forEach((item, idx) => {
-            const radios = document.getElementsByName(`p3-q${idx}`);
-            if(radios[item.ans].checked) score++;
-        });
-        part4Data.forEach((item, idx) => {
-            const radios = document.getElementsByName(`p4-q${idx}`);
-            if(radios[item.ans].checked) score++;
-        });
-        document.getElementById('total-score').innerText = score;
-    }
-
-    // INIT
-    window.onload = function() {
-        renderPart1();
-        renderPart2();
-        renderPart3();
-        renderPart4();
-        renderPart5();
-        renderPart6();
-    };
-
-</script>
-</body>
-</html>
+            mainMsg.innerHTML = "Tuyệt vời
