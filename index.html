@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mid-Course Review: Lesson 1-7</title>
+    <style>
+        :root {
+            --primary: #4a90e2;
+            --success: #28a745;
+            --error: #dc3545;
+            --explain: #17a2b8; /* Màu xanh nước biển */
+            --translate: #e83e8c; /* Màu hồng */
+            --bg-light: #f8f9fa;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f0f2f5;
+        }
+
+        h1, h2 {
+            color: #2c3e50;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .section {
+            background: white;
+            padding: 25px;
+            margin-bottom: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            border-left: 5px solid var(--primary);
+        }
+
+        .question-block {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .question-text {
+            font-weight: 600;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+        }
+
+        /* Controls */
+        select, input[type="text"] {
+            padding: 8px;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+            font-size: 1em;
+            width: 100%;
+            max-width: 400px;
+            margin-top: 5px;
+            transition: border-color 0.3s;
+        }
+
+        input[type="radio"] {
+            margin-right: 10px;
+            transform: scale(1.2);
+        }
+
+        label {
+            cursor: pointer;
+            display: block;
+            margin: 5px 0;
+            padding: 5px;
+            border-radius: 4px;
+        }
+
+        label:hover {
+            background-color: #f0f8ff;
+        }
+
+        /* Buttons */
+        .btn-group {
+            margin-top: 10px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9em;
+            font-weight: 600;
+            color: white;
+            transition: opacity 0.2s;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        .btn-check { background-color: var(--primary); }
+        .btn-explain { background-color: var(--explain); }
+        .btn-trans { background-color: var(--translate); }
+
+        /* Feedback States */
+        .correct-input {
+            border-color: var(--success) !important;
+            background-color: #d4edda;
+        }
+
+        .incorrect-input {
+            border-color: var(--error) !important;
+            background-color: #f8d7da;
+        }
+
+        .feedback-msg {
+            display: inline-block;
+            margin-left: 10px;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+
+        .text-success { color: var(--success); }
+        .text-error { color: var(--error); }
+
+        /* Hidden Boxes */
+        .info-box {
+            display: none;
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 0.95em;
+        }
+
+        .explain-box {
+            background-color: #e3f2fd;
+            border-left: 4px solid var(--explain);
+            color: #0c5460;
+        }
+
+        .trans-box {
+            background-color: #fce4ec;
+            border-left: 4px solid var(--translate);
+            color: #880e4f;
+            font-style: italic;
+        }
+
+        .word-bank {
+            background: #e9ecef;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            font-weight: bold;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>REVIEW TỔNG HỢP: LESSON 1 - 7</h1>
+        <p>Kiến thức: Vocabulary, Grammar & Functional Language</p>
+    </div>
+
+    <div class="section">
+        <h2>PART 1: TERMINOLOGY MATCH (Nối từ chuyên ngành)</h2>
+        <p>Chọn định nghĩa đúng cho mỗi thuật ngữ.</p>
+        
+        <div id="part1-container">
+            </div>
+    </div>
+
+    <div class="section">
+        <h2>PART 2: DISTINGUISH THE PAIRS (Phân biệt từ)</h2>
+        <div id="part2-container"></div>
+    </div>
+
+    <div class="section">
+        <h2>PART 3: LOGIC CHECK (Tư duy phản biện)</h2>
+        <p>Phần <b>in đậm</b> bị sai Logic. Hãy chọn đáp án đúng để thay thế.</p>
+        <div id="part3-container"></div>
+    </div>
+
+    <div class="section">
+        <h2>PART 4: SITUATIONAL DIALOGUES (Hội thoại)</h2>
+        <div id="part4-container"></div>
+    </div>
+
+    <div class="section">
+        <h2>PART 5: FUNCTIONAL LANGUAGE (Điền từ)</h2>
+        <div class="word-bank">
+            WORD BANK: held up | elaborate | workaround | rather | regarding
+        </div>
+        <div id="part5-container"></div>
+    </div>
+
+    <div class="section">
+        <h2>PART 6: SENTENCE BUILDING (Viết câu)</h2>
+        <p>Sắp xếp từ khóa thành câu hoàn chỉnh (Thêm từ phụ nếu cần).</p>
+        <div id="part6-container"></div>
+    </div>
+
+    <div class="section">
+        <h2>PART 7: EMAIL WRITING</h2>
+        <div class="word-bank">
+            Red Light | Showstopper | Simulator | Mitigation | Clarify | Overlapping
+        </div>
+        <div style="background: #fdfdfd; padding: 20px; border: 1px solid #ccc;">
+            <p><strong>Subject:</strong> Project Status Update</p>
+            <p>Dear Client,</p>
+            <p>I am writing to update you on the project status. Unfortunately, we are currently at a 
+                (1) <input type="text" id="p7-q1" style="width: 150px;"> <span id="fb-p7-q1"></span>.
+            </p>
+            <p>This morning, the testing team identified a critical bug. It is a 
+                (2) <input type="text" id="p7-q2" style="width: 150px;"> <span id="fb-p7-q2"></span> because users cannot log in.
+            </p>
+            <p>Specifically, the "Login" button is 
+                (3) <input type="text" id="p7-q3" style="width: 150px;"> <span id="fb-p7-q3"></span> with the "Sign Up" text, making it unclickable.
+            </p>
+            <p>This issue only happens on Real Devices, not on the 
+                (4) <input type="text" id="p7-q4" style="width: 150px;"> <span id="fb-p7-q4"></span>.
+            </p>
+            <p>We have a 
+                (5) <input type="text" id="p7-q5" style="width: 150px;"> <span id="fb-p7-q5"></span> plan:
+            </p>
+            <ol>
+                <li>The Dev team will fix the UI code today.</li>
+                <li>We need you to (6) <input type="text" id="p7-q6" style="width: 150px;"> <span id="fb-p7-q6"></span> the expected screen size for the new iPad.</li>
+            </ol>
+            <p>Best regards,<br>Project Manager.</p>
+        </div>
+        <br>
+        <div class="btn-group">
+            <button class="btn-check" onclick="checkPart7()">Kiểm tra Email</button>
+            <button class="btn-explain" onclick="toggle('exp-p7')">Giải thích</button>
+            <button class="btn-trans" onclick="toggle('trans-p7')">Dịch nghĩa</button>
+        </div>
+        <div id="exp-p7" class="info-box explain-box">
+            Điền các từ vựng vào chỗ trống:
+            1. Trạng thái nguy cấp (Red Light). 2. Lỗi nghiêm trọng chặn quy trình (Showstopper). 3. Lỗi giao diện chồng chéo (Overlapping). 4. Môi trường giả lập (Simulator). 5. Kế hoạch giảm thiểu rủi ro (Mitigation). 6. Làm rõ yêu cầu (Clarify).
+        </div>
+        <div id="trans-p7" class="info-box trans-box">
+            Thưa Khách hàng,<br>
+            Tôi viết email này để cập nhật trạng thái dự án. Thật không may, chúng tôi đang ở mức Báo động Đỏ.<br>
+            Sáng nay, đội test đã phát hiện một lỗi nghiêm trọng (Showstopper). Cụ thể, nút "Đăng nhập" bị chồng chéo (Overlapping) với chữ "Đăng ký". Lỗi này chỉ xảy ra trên Thiết bị thật, không bị trên Máy giả lập (Simulator).<br>
+            Chúng tôi có kế hoạch giảm thiểu rủi ro (Mitigation): Đội Dev sẽ sửa code hôm nay. Chúng tôi cần bạn làm rõ (Clarify) kích thước màn hình mong đợi.
+        </div>
+    </div>
+
+<script>
+    // DATA CONFIGURATION
+    const part1Data = [
+        { q: "1. Scope Creep", ans: "C", opts: ["A", "B", "C", "D", "E", "F"], exp: "Scope Creep là việc phạm vi dự án phình to không kiểm soát.", trans: "Sự mở rộng không kiểm soát của các mục tiêu/tính năng dự án mà không điều chỉnh thời gian/ngân sách." },
+        { q: "2. Showstopper", ans: "D", opts: ["A", "B", "C", "D", "E", "F"], exp: "Showstopper là lỗi nghiêm trọng chặn đứng mọi việc (như cháy nhà hát).", trans: "Một vấn đề nghiêm trọng làm dừng toàn bộ quy trình hoặc đợt phát hành." },
+        { q: "3. Mitigation", ans: "F", opts: ["A", "B", "C", "D", "E", "F"], exp: "Mitigation là hành động làm giảm nhẹ tác động xấu.", trans: "Hành động giảm mức độ nghiêm trọng hoặc khả năng xảy ra của một rủi ro." },
+        { q: "4. Hotfix", ans: "A", opts: ["A", "B", "C", "D", "E", "F"], exp: "Hotfix là bản vá nóng, sửa ngay lập tức.", trans: "Một bản sửa lỗi nhanh, tạm thời cho một lỗi trực tiếp trên hệ thống đang chạy." },
+        { q: "5. Simulator", ans: "B", opts: ["A", "B", "C", "D", "E", "F"], exp: "Simulator là môi trường giả lập, không phải thiết bị thật.", trans: "Môi trường mô phỏng bắt chước phần cứng thực tế nhưng không phải là thật." },
+        { q: "6. Bandwidth", ans: "E", opts: ["A", "B", "C", "D", "E", "F"], exp: "Bandwidth (nghĩa bóng) là khả năng làm việc của team.", trans: "Lượng dữ liệu có thể truyền tải (hoặc năng lực làm việc của một nhóm)." }
+    ];
+
+    const part2Data = [
+        { 
+            pre: "Unlike a ", gap1: "fixed schedule", mid: ", which requires 9-5, ", gap2: "flexible hours", post: " allows you to choose time.",
+            opts: ["fixed schedule", "flexible hours"],
+            exp: "Fixed schedule: Lịch cố định (bắt buộc). Flexible hours: Giờ linh hoạt (được chọn).",
+            trans: "Không giống như lịch cố định yêu cầu bạn làm từ 9 đến 5 giờ, giờ làm việc linh hoạt cho phép bạn chọn thời gian bắt đầu và kết thúc."
+        },
+        { 
+            pre: "An ", gap1: "amber light", mid: " means risk but manageable, whereas a ", gap2: "red light", post: " means we are behind schedule.",
+            opts: ["amber light", "red light"],
+            exp: "Amber (Vàng): Có rủi ro nhưng kiểm soát được. Red (Đỏ): Chậm tiến độ, cần cứu viện gấp.",
+            trans: "Đèn vàng nghĩa là dự án có rủi ro nhưng vẫn kiểm soát được, trong khi đèn đỏ nghĩa là chúng ta chắc chắn bị chậm tiến độ và cần giúp đỡ ngay lập tức."
+        },
+        { 
+            pre: "A ", gap1: "mockup", mid: " is a specific draft of our product, while a ", gap2: "reference", post: " is just an example.",
+            opts: ["mockup", "reference"],
+            exp: "Mockup: Bản thiết kế của mình. Reference: Tài liệu tham khảo của người khác.",
+            trans: "Mockup là bản phác thảo thiết kế cụ thể của sản phẩm chúng ta, trong khi Reference chỉ là một ví dụ từ ứng dụng khác để tham khảo."
+        },
+        { 
+            pre: "The deadline is ", gap1: "aggressive", mid: ", so honestly, it is not ", gap2: "feasible", post: " to finish on time.",
+            opts: ["aggressive", "feasible"],
+            exp: "Aggressive: (Lịch trình) Khắt khe/Gấp gáp. Feasible: Khả thi.",
+            trans: "Hạn chót cực kỳ gấp gáp, vì vậy thành thật mà nói, việc hoàn thành mọi thứ đúng hạn là không khả thi."
+        }
+    ];
+
+    const part3Data = [
+        {
+            q: "The deadline is fixed, so we must <b>add more features</b> to finish on time.",
+            opts: ["prioritize key features", "increase the scope", "assume the requirements"],
+            ans: 0, // Index of correct answer
+            exp: "Deadline cố định thì không được thêm việc (add features). Ta phải ưu tiên việc quan trọng (prioritize) hoặc cắt bớt việc.",
+            trans: "Hạn chót đã cố định (không thể đổi), vì vậy chúng ta phải ưu tiên các tính năng chính để hoàn thành đúng hạn."
+        },
+        {
+            q: "I have severe eye strain, so I plan to <b>watch movies to relax</b>.",
+            opts: ["take regular breaks and look away", "abuse caffeine", "use a simulator"],
+            ans: 0,
+            exp: "Mỏi mắt (Eye strain) thì phải nghỉ ngơi, nhìn ra xa. Xem phim tiếp sẽ làm mắt mỏi hơn.",
+            trans: "Tôi bị mỏi mắt nghiêm trọng, vì vậy tôi dự định sẽ nghỉ giải lao thường xuyên và nhìn ra xa để thư giãn."
+        },
+        {
+            q: "The system works on the Simulator but fails on the Real Device. This is <b>just a minor bug</b>.",
+            opts: ["a green light", "a showstopper", "a mitigation plan"],
+            ans: 1,
+            exp: "Lỗi trên thiết bị thật khiến người dùng không dùng được -> Là lỗi nghiêm trọng (Showstopper).",
+            trans: "Hệ thống chạy được trên Giả lập nhưng lỗi trên Thiết bị thật. Đây là một lỗi nghiêm trọng chặn đứng quy trình."
+        },
+        {
+            q: "We are behind schedule, so the project status is currently a <b>Green Light</b>.",
+            opts: ["Red Light", "Workaround", "Bottleneck"],
+            ans: 0,
+            exp: "Chậm tiến độ (Behind schedule) tương ứng với Đèn Đỏ (Red Light). Đèn Xanh là đúng tiến độ.",
+            trans: "Chúng ta đang bị chậm tiến độ, vì vậy trạng thái dự án hiện tại là Đèn Đỏ."
+        }
+    ];
+
+    const part4Data = [
+        {
+            context: "<b>BA:</b> The user needs to upload the file.<br><b>Dev:</b> Wait. _______ Is it a PDF or a JPG?",
+            opts: ["Do you have a specific mockup?", "Just to be clear, are we assuming the file format?", "What is the expected behavior?"],
+            ans: 1,
+            exp: "Dev đang hỏi về định dạng file để tránh hiểu sai -> Cần dùng cấu trúc xác nhận giả định (Just to be clear...).",
+            trans: "Đợi đã. Để cho rõ ràng, có phải chúng ta đang giả định định dạng file không? (Là PDF hay JPG?)"
+        },
+        {
+            context: "<b>Client:</b> I want this done in 2 days.<br><b>PM:</b> _______ We need at least 5 days to code.",
+            opts: ["That timeline is extremely aggressive.", "That is feasible.", "I propose a green light."],
+            ans: 0,
+            exp: "Khách đòi 2 ngày, mình cần 5 ngày -> Phải từ chối khéo bằng cách nói lịch trình quá gắt (Aggressive).",
+            trans: "Mốc thời gian đó cực kỳ gấp gáp/khắt khe. Chúng tôi cần ít nhất 5 ngày để code."
+        },
+        {
+            context: "<b>Colleague:</b> I feel empty and tired. I think I have burnout.<br><b>You:</b> Oh no. _______",
+            opts: ["You should work overtime.", "You should abuse caffeine.", "You should take some paid holidays to relax."],
+            ans: 2,
+            exp: "Burnout (kiệt sức) cần nghỉ ngơi (Paid holidays). Khuyên làm thêm giờ hay uống cafe là sai.",
+            trans: "Ôi không. Bạn nên xin nghỉ phép có lương vài ngày để thư giãn đi."
+        }
+    ];
+
+    const part5Data = [
+        { q: "Could you ______ on what you mean by 'automatic'?", ans: "elaborate", exp: "Elaborate on: Giải thích chi tiết thêm.", trans: "Bạn có thể giải thích rõ hơn ý bạn là gì khi nói 'tự động' không?" },
+        { q: "There seems to be a gap ______ the logic.", ans: "regarding", exp: "Regarding: Liên quan đến/Về việc.", trans: "Dường như có một lỗ hổng liên quan đến logic." },
+        { q: "Actually, I'd ______ not be the MC because I am shy.", ans: "rather", exp: "I'd rather not: Tôi thà không làm (Cách từ chối lịch sự).", trans: "Thực ra, xin lỗi nhưng tôi thà không làm MC vì tôi hay ngại." },
+        { q: "The release is being ______ by a server error.", ans: "held up", exp: "Be held up by: Bị kìm hãm/trì hoãn bởi.", trans: "Đợt phát hành đang bị trì hoãn bởi một lỗi máy chủ." },
+        { q: "The deadline is too tight, so I propose a ______.", ans: "workaround", exp: "Workaround: Giải pháp thay thế/đường vòng.", trans: "Hạn chót quá gấp, nên tôi đề xuất một giải pháp thay thế tạm thời." }
+    ];
+
+    const part6Data = [
+        { q: "swap / Can / roles / we / the / presentation? / for", ans: "Can we swap roles for the presentation?", exp: "Cấu trúc đề nghị: Can we + V + O?", trans: "Chúng ta có thể đổi vai cho bài thuyết trình được không?" },
+        { q: "feasible / It / not / is / complete / 2 days. / in / to", ans: "It is not feasible to complete in 2 days.", exp: "Cấu trúc tính từ: It is + adj + to V.", trans: "Việc hoàn thành trong 2 ngày là không khả thi." },
+        { q: "escalate / I / issue / will / to / manager. / the / this", ans: "I will escalate this issue to the manager.", exp: "Escalate something to someone: Leo thang vấn đề lên ai.", trans: "Tôi sẽ báo cáo (leo thang) vấn đề này lên quản lý." },
+        { q: "If / you / lead / sedentary lifestyle / you / will / have / back pain.", ans: "If you lead a sedentary lifestyle, you will have back pain.", exp: "Câu điều kiện loại 1: If + HTĐ, S + Will + V.", trans: "Nếu bạn có lối sống ít vận động, bạn sẽ bị đau lưng." }
+    ];
+
+    // RENDER FUNCTIONS
+
+    function renderPart1() {
+        const container = document.getElementById('part1-container');
+        part1Data.forEach((item, index) => {
+            let optionsHTML = `<option value="">Chọn...</option>`;
+            item.opts.forEach(opt => optionsHTML += `<option value="${opt}">${opt}</option>`);
+            
+            const html = `
+                <div class="question-block">
+                    <div class="question-text">${item.q}</div>
+                    <select id="p1-q${index}">${optionsHTML}</select>
+                    <span id="fb-p1-q${index}" class="feedback-msg"></span>
+                    <div class="btn-group">
+                        <button class="btn-check" onclick="checkSelect('p1-q${index}', '${item.ans}')">Kiểm tra</button>
+                        <button class="btn-explain" onclick="toggle('exp-p1-${index}')">Giải thích</button>
+                        <button class="btn-trans" onclick="toggle('trans-p1-${index}')">Dịch nghĩa</button>
+                    </div>
+                    <div id="exp-p1-${index}" class="info-box explain-box">${item.exp}</div>
+                    <div id="trans-p1-${index}" class="info-box trans-box">${item.trans}</div>
+                </div>
+            `;
+            container.innerHTML += html;
+        });
+    }
+
+    function renderPart2() {
+        const container = document.getElementById('part2-container');
+        part2Data.forEach((item, index) => {
+            let opts1 = `<option value="">---</option><option value="${item.opts[0]}">${item.opts[0]}</option><option value="${item.opts[1]}">${item.opts[1]}</option>`;
+            let opts2 = opts1; // Same options for both drops
+
+            const html = `
+                <div class="question-block">
+                    <div class="question-text">
+                        ${item.pre}
+                        <select id="p2-q${index}-1" style="width:150px; display:inline;">${opts1}</select>
+                        <span id="fb-p2-q${index}-1"></span>
+                        ${item.mid}
+                        <select id="p2-q${index}-2" style="width:150px; display:inline;">${opts2}</select>
+                        <span id="fb-p2-q${index}-2"></span>
+                        ${item.post}
+                    </div>
+                    <div class="btn-group">
+                        <button class="btn-check" onclick="checkPart2(${index}, '${item.gap1}', '${item.gap2}')">Kiểm tra</button>
+                        <button class="btn-explain" onclick="toggle('exp-p2-${index}')">Giải thích</button>
+                        <button class="btn-trans" onclick="toggle('trans-p2-${index}')">Dịch nghĩa</button>
+                    </div>
+                    <div id="exp-p2-${index}" class="info-box explain-box">${item.exp}</div>
+                    <div id="trans-p2-${index}" class="info-box trans-box">${item.trans}</div>
+                </div>
+            `;
+            container.innerHTML += html;
+        });
+    }
+
+    function renderPart3() {
+        const container = document.getElementById('part3-container');
+        part3Data.forEach((item, index) => {
+            let optionsHTML = '';
+            item.opts.forEach((opt, i) => {
+                optionsHTML += `<label><input type="radio" name="p3-q${index}" value="${i}"> ${opt}</label>`;
+            });
+
+            const html = `
+                <div class="question-block">
+                    <div class="question-text">${index + 1}. ${item.q}</div>
+                    <div>${optionsHTML}</div>
+                    <div id="fb-p3-q${index}" class="feedback-msg"></div>
+                    <div class="btn-group">
+                        <button class="btn-check" onclick="checkRadio('p3-q${index}', ${item.ans}, 'fb-p3-q${index}')">Kiểm tra</button>
+                        <button class="btn-explain" onclick="toggle('exp-p3-${index}')">Giải thích</button>
+                        <button class="btn-trans" onclick="toggle('trans-p3-${index}')">Dịch nghĩa</button>
+                    </div>
+                    <div id="exp-p3-${index}" class="info-box explain-box">${item.exp}</div>
+                    <div id="trans-p3-${index}" class="info-box trans-box">${item.trans}</div>
+                </div>
+            `;
+            container.innerHTML += html;
+        });
+    }
+
+    function renderPart4() {
+        const container = document.getElementById('part4-container');
+        part4Data.forEach((item, index) => {
+            let optionsHTML = '';
+            item.opts.forEach((opt, i) => {
+                optionsHTML += `<label><input type="radio" name="p4-q${index}" value="${i}"> ${opt}</label>`;
+            });
+
+            const html = `
+                <div class="question-block">
+                    <div class="question-text" style="font-weight:normal; background:#f9f9f9; padding:10px; border-radius:5px;">${item.context}</div>
+                    <div style="margin-top:10px;">${optionsHTML}</div>
+                    <div id="fb-p4-q${index}" class="feedback-msg"></div>
+                    <div class="btn-group">
+                        <button class="btn-check" onclick="checkRadio('p4-q${index}', ${item.ans}, 'fb-p4-q${index}')">Kiểm tra</button>
+                        <button class="btn-explain" onclick="toggle('exp-p4-${index}')">Giải thích</button>
+                        <button class="btn-trans" onclick="toggle('trans-p4-${index}')">Dịch nghĩa</button>
+                    </div>
+                    <div id="exp-p4-${index}" class="info-box explain-box">${item.exp}</div>
+                    <div id="trans-p4-${index}" class="info-box trans-box">${item.trans}</div>
+                </div>
+            `;
+            container.innerHTML += html;
+        });
+    }
+
+    function renderPart5() {
+        const container = document.getElementById('part5-container');
+        part5Data.forEach((item, index) => {
+            const html = `
+                <div class="question-block">
+                    <div class="question-text">${index + 1}. ${item.q.replace('______', `<input type="text" id="p5-q${index}" style="width:120px; display:inline;">`)} </div>
+                    <span id="fb-p5-q${index}" class="feedback-msg"></span>
+                    <div class="btn-group">
+                        <button class="btn-check" onclick="checkText('p5-q${index}', '${item.ans}', 'fb-p5-q${index}')">Kiểm tra</button>
+                        <button class="btn-explain" onclick="toggle('exp-p5-${index}')">Giải thích</button>
+                        <button class="btn-trans" onclick="toggle('trans-p5-${index}')">Dịch nghĩa</button>
+                    </div>
+                    <div id="exp-p5-${index}" class="info-box explain-box">${item.exp}</div>
+                    <div id="trans-p5-${index}" class="info-box trans-box">${item.trans}</div>
+                </div>
+            `;
+            container.innerHTML += html;
+        });
+    }
+
+    function renderPart6() {
+        const container = document.getElementById('part6-container');
+        part6Data.forEach((item, index) => {
+            const html = `
+                <div class="question-block">
+                    <div class="question-text" style="color: #666;">Từ khóa: ${item.q}</div>
+                    <input type="text" id="p6-q${index}" placeholder="Viết câu hoàn chỉnh tại đây..." style="width:100%;">
+                    <span id="fb-p6-q${index}" class="feedback-msg"></span>
+                    <div class="btn-group">
+                        <button class="btn-check" onclick="checkSentence('p6-q${index}', '${item.ans.replace(/'/g, "\\'")}', 'fb-p6-q${index}')">Kiểm tra</button>
+                        <button class="btn-explain" onclick="toggle('exp-p6-${index}')">Giải thích</button>
+                        <button class="btn-trans" onclick="toggle('trans-p6-${index}')">Đáp án & Dịch</button>
+                    </div>
+                    <div id="exp-p6-${index}" class="info-box explain-box">${item.exp}</div>
+                    <div id="trans-p6-${index}" class="info-box trans-box"><b>Đáp án đúng:</b> ${item.ans}<br><b>Dịch:</b> ${item.trans}</div>
+                </div>
+            `;
+            container.innerHTML += html;
+        });
+    }
+
+    // UTILITY FUNCTIONS
+
+    function toggle(id) {
+        const el = document.getElementById(id);
+        if (el.style.display === "block") {
+            el.style.display = "none";
+        } else {
+            el.style.display = "block";
+        }
+    }
+
+    function cleanStr(str) {
+        return str.trim().toLowerCase().replace(/[.,?!]/g, '').replace(/\s+/g, ' ');
+    }
+
+    function setFeedback(isCorrect, inputEl, msgEl, correctAns = "") {
+        if (isCorrect) {
+            inputEl.classList.remove('incorrect-input');
+            inputEl.classList.add('correct-input');
+            msgEl.innerHTML = `✅ Chính xác!`;
+            msgEl.className = "feedback-msg text-success";
+        } else {
+            inputEl.classList.remove('correct-input');
+            inputEl.classList.add('incorrect-input');
+            msgEl.innerHTML = `❌ Sai rồi. Thử lại nhé!`;
+            msgEl.className = "feedback-msg text-error";
+        }
+    }
+
+    // CHECKING FUNCTIONS
+
+    function checkSelect(id, correctVal) {
+        const el = document.getElementById(id);
+        const msgEl = document.getElementById('fb-' + id);
+        setFeedback(el.value === correctVal, el, msgEl);
+    }
+
+    function checkPart2(index, ans1, ans2) {
+        const el1 = document.getElementById(`p2-q${index}-1`);
+        const el2 = document.getElementById(`p2-q${index}-2`);
+        const msg1 = document.getElementById(`fb-p2-q${index}-1`);
+        const msg2 = document.getElementById(`fb-p2-q${index}-2`);
+
+        setFeedback(el1.value === ans1, el1, msg1);
+        setFeedback(el2.value === ans2, el2, msg2);
+    }
+
+    function checkRadio(name, correctIndex, msgId) {
+        const radios = document.getElementsByName(name);
+        const msgEl = document.getElementById(msgId);
+        let selected = -1;
+        
+        // Remove previous styles
+        radios.forEach(r => r.parentElement.style.backgroundColor = "transparent");
+
+        for(let i=0; i<radios.length; i++) {
+            if (radios[i].checked) selected = i;
+        }
+
+        if (selected === -1) {
+            msgEl.innerHTML = "Vui lòng chọn một đáp án.";
+            return;
+        }
+
+        if (selected === correctIndex) {
+            radios[selected].parentElement.style.backgroundColor = "#d4edda";
+            msgEl.innerHTML = "✅ Chính xác!";
+            msgEl.className = "feedback-msg text-success";
+        } else {
+            radios[selected].parentElement.style.backgroundColor = "#f8d7da";
+            msgEl.innerHTML = "❌ Sai rồi.";
+            msgEl.className = "feedback-msg text-error";
+        }
+    }
+
+    function checkText(id, correctText, msgId) {
+        const el = document.getElementById(id);
+        const msgEl = document.getElementById(msgId);
+        // Compare trimmed and lowercase
+        const isCorrect = cleanStr(el.value) === cleanStr(correctText);
+        setFeedback(isCorrect, el, msgEl);
+    }
+
+    function checkSentence(id, correctText, msgId) {
+        const el = document.getElementById(id);
+        const msgEl = document.getElementById(msgId);
+        
+        // Simple comparison for exact match logic (allowing case insensitivity)
+        // For production, maybe use fuzzy matching, but here simple is robust enough
+        const user = cleanStr(el.value);
+        const correct = cleanStr(correctText);
+        
+        // Allow removing punctuation for check
+        if (user === correct) {
+            setFeedback(true, el, msgEl);
+        } else {
+            setFeedback(false, el, msgEl);
+        }
+    }
+
+    function checkPart7() {
+        const answers = [
+            "red light", "showstopper", "overlapping", "simulator", "mitigation", "clarify"
+        ];
+        
+        for(let i=1; i<=6; i++) {
+            const el = document.getElementById(`p7-q${i}`);
+            const msg = document.getElementById(`fb-p7-q${i}`);
+            const userVal = cleanStr(el.value);
+            const correctVal = answers[i-1];
+            
+            // Check
+            const isCorrect = userVal === correctVal;
+            if(isCorrect) {
+                 el.classList.remove('incorrect-input');
+                 el.classList.add('correct-input');
+                 msg.innerHTML = "✅ " + answers[i-1]; // Show answer green
+                 msg.className = "text-success";
+                 msg.style.fontWeight = "bold";
+                 msg.style.marginLeft = "5px";
+            } else {
+                 el.classList.remove('correct-input');
+                 el.classList.add('incorrect-input');
+                 msg.innerHTML = "❌";
+            }
+        }
+    }
+
+    // INITIALIZE
+    window.onload = function() {
+        renderPart1();
+        renderPart2();
+        renderPart3();
+        renderPart4();
+        renderPart5();
+        renderPart6();
+    };
+
+</script>
+
+</body>
+</html>
