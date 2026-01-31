@@ -747,4 +747,68 @@
 
         const mainMsg = document.getElementById('fb-p7-main');
         if(correctCount === 6) {
-            mainMsg.innerHTML = "Tuyệt vời
+            mainMsg.innerHTML = "Tuyệt vời! Bạn đã làm đúng hết.";
+            document.getElementById('btn-exp-p7').style.display = 'inline-block';
+            document.getElementById('btn-trans-p7').style.display = 'inline-block';
+        } else {
+            mainMsg.innerHTML = `Bạn làm đúng ${correctCount}/6 câu. Hãy kiểm tra lại các ô màu đỏ nhé!`;
+        }
+        updateRunningScore();
+    }
+
+    // --- SCORING LOGIC ---
+    function calculateTotalScore() {
+        let score = 0;
+        
+        // 1. Inputs/Selects with 'correct-input' class
+        const correctInputs = document.querySelectorAll('.correct-input').length;
+        score += correctInputs;
+
+        // 2. Radios (T3, T4)
+        part3Data.forEach((item, idx) => {
+            const radios = document.getElementsByName(`p3-q${idx}`);
+            if(radios[item.ans].checked) score++;
+        });
+        part4Data.forEach((item, idx) => {
+            const radios = document.getElementsByName(`p4-q${idx}`);
+            if(radios[item.ans].checked) score++;
+        });
+
+        document.getElementById('total-score').innerText = score;
+        
+        // Copy to clipboard
+        const name = document.getElementById('studentName').value || "Học viên";
+        const resultText = `Kết quả bài Review LLA:\nHọc viên: ${name}\nĐiểm số: ${score}/32`;
+        
+        navigator.clipboard.writeText(resultText).then(() => {
+            alert(`${resultText}\n\n(Đã sao chép kết quả! Bạn hãy paste gửi cho giáo viên nhé)`);
+        });
+    }
+
+    function updateRunningScore() {
+        let score = 0;
+        score += document.querySelectorAll('.correct-input').length;
+        part3Data.forEach((item, idx) => {
+            const radios = document.getElementsByName(`p3-q${idx}`);
+            if(radios[item.ans].checked) score++;
+        });
+        part4Data.forEach((item, idx) => {
+            const radios = document.getElementsByName(`p4-q${idx}`);
+            if(radios[item.ans].checked) score++;
+        });
+        document.getElementById('total-score').innerText = score;
+    }
+
+    // INIT
+    window.onload = function() {
+        renderPart1();
+        renderPart2();
+        renderPart3();
+        renderPart4();
+        renderPart5();
+        renderPart6();
+    };
+
+</script>
+</body>
+</html>
